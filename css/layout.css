@@ -1,0 +1,108 @@
+html, body{
+  background: url('../img/pattern_content.jpg') repeat;
+}
+
+@font-face {
+    font-family: myFont;
+    src: url(../font/PaperJohnnyEinhalb-Regular.otf);
+}
+
+h2, h3, h4{
+  font-family: myFont;
+}
+/*Content*/
+#content{
+}
+
+/* Footer */
+footer {
+    padding: 100px 0;
+}
+
+/*Menu*/
+.kr-menu{
+  margin: 0;
+  padding: 0;
+}
+
+.kr-menu li{
+  font-family: myFont;
+  text-align: center;
+  float:left;
+  margin: 0;
+  height: 52px;
+  width: 250px;
+  line-height: 52px;
+  display: inline-block;
+}
+
+.kr-menu li.active{
+  background-color: #659E60;
+}
+
+.kr-menu li:hover{
+  background-color: #659E60;
+}
+
+.kr-menu a{
+  display: block;
+  width: 100%;
+  color: white;
+}
+
+/*Title*/
+.title-content-section .i-title{
+  width: 84px;
+  display: inline-block;
+}
+
+.title-content-section > h2{
+  font-family: myFont;
+  display: inline-block;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.title-content-section{
+    width: 100%;
+    text-align: center;
+}
+/* BG */
+.bg-primary{
+  background-color: #1C1C1C;
+}
+
+.k-menu h3{
+  font-weight: bold;
+}
+
+.k-menu ul>li>a{
+  color: white;
+}
+
+.k-menu ul>li>a:hover{
+  color: black;
+}
+
+/*UTILS MESSAGE*/
+.k-info-box{
+  background-color: #D8E4E9;
+  border: 1px solid #598BA0;
+}
+
+.k-info-box h3{
+  font-weight: bold;
+  width: 100%;
+  background-color: #7899A7;
+  margin: 0;
+  color: white;
+  padding: 2px;
+  font-size: 1.3em;
+}
+
+.k-info-box >p{
+  display: inline-block;
+  padding: 5px;
+  color: #27363C;
+  font-size: 0.9em;
+}

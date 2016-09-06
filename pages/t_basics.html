@@ -1,0 +1,130 @@
+---
+layout: default
+title: Tutoriel - Basics
+id_page: basics
+---
+<p>
+Regardons l'arborescence de notre dossier:
+{% highlight ruby %}
+\
+  - audio/
+  - chars/
+  - dx_bge/
+  - props/
+  - scenes/
+  - shader/
+  - texture/
+{% endhighlight %}
+</p>
+<p>
+			Nous allons expliquer rapidement l&#39;utilit&eacute; de ces dossiers</p>
+		<ul>
+			<li>
+				<strong>&quot;audio&quot;:</strong> comporte toutes les ressources audios.</li>
+			<li>
+				<strong>&quot;props&quot;: </strong>comporte tout les effets, bonus, &eacute;l&eacute;ments, bref des objets externes que nous lierons aux scenes ou aux personnages .</li>
+			<li>
+				<strong>&quot;chars&quot;:</strong> avec tout les personnages du jeu tel que les monstres, NPC et joueurs.</li>
+			<li>
+				<strong>&quot;texture&quot;: </strong>comme l&#39;indique le nom du dossier, il sagit du r&eacute;pertoire o&ugrave; les textures y seront stock&eacute;es.</li>
+			<li>
+				<strong>&quot;scenes&quot;:</strong> toutes les scenes telle que les maps seront sauvegard&eacute;es dans ce dossier.</li>
+		</ul>
+		<p>
+			Cependant pour cette premi&egrave;re partie nous allons nous interresser au dossier <strong>&quot;chars&quot;</strong>, soit plus pr&eacute;cisement au personnage. Dans ce r&eacute;pertoire nous remarquerons le fichier blend <strong>&quot;klauth&quot;</strong> qui est en fa&icirc;te le personnage, sans oublier le dossier <strong>&quot;player_scripts&quot;</strong> pour les scripts du joueur.</p>
+		<h3>
+			R&eacute;partition des scripts</h3>
+		<p>
+			Tout d&#39;abord il faut savoir que le joueur fonctionne sous plusieurs &quot;&eacute;tat&quot;. Chaque &eacute;tat correspond &agrave; une action du joueur, par exemple le joueur peut courrir et sauter... ce sont des &eacute;tats. Ils sont g&eacute;r&eacute;s par un manager, la classe <strong>PlayerStateManager</strong>.</p>
+      <p>Voici une image pour illustrer la chose :</p>
+      <img src="/img/tutoriels/part1/illustration1.png" />
+		<p>
+			En clair &agrave; la racine du dossier &quot;player_scripts&quot; nous aurons un sous-r&eacute;pertoire <strong>&quot;states&quot;</strong> pour y stocker les &eacute;tats.</p>
+		<div class="k-info-box">
+      <h3>Note</h3>
+      <p>
+			Les &eacute;tats sont en fa&icirc;te des m&eacute;thodes (ou fonctions) en python, dans un script repr&eacute;sentant un &quot;<strong>type d&#39;&eacute;tat</strong>&quot;. Je m&#39;explique, imaginons qu&#39;un joueur ai la capacit&eacute; d&#39;interagir dans l&#39;eau. On sait que dans l&#39;eau, on peux nager sur place, nager en avancant, plonger, etc. Dans ce cas la on peut cr&eacute;er un type d&#39;&eacute;tat appel&eacute; <strong>&quot;Water&quot;</strong>, ou l&#39;on codera tout les &eacute;tats en rapport avec l&#39;eau. Et puis si vous trouvez que votre script Water.py est trop charg&eacute;, creez tout simplement un type d'état comme Water2.py
+      </p>
+    </div>
+		<h4>
+			Mais pourquoi s&eacute;parer chaque &eacute;tat par des scripts ?</h4>
+		<p>
+			D&#39;une part on peux s&#39;y rep&eacute;rer plus aisément lorsqu&#39;on souhaite les modifier et cela évite de se retrouver avec plus de 5000 lignes de code dans un seul script g&eacute;rant tout les &eacute;tats (voir m&ecirc;me beaucoup plus selon les ambitions de certains jeux).</p>
+
+		<h4>
+			Comment fonctionne clairement ton syst&egrave;me d&#39;&eacute;tat ?</h4>
+		<p>
+			Au d&eacute;but je devais cr&eacute;er chaque fichier &eacute;tat,&nbsp; d&eacute;finir leurs constantes et int&eacute;grer leur appel dans PlayerStateManagement.py manuellement ! Vous imaginez bien le temps qu&#39;on peux perdre &agrave; faire tout cela un par un,
+      surtout lorsque qu'on souhaite créer plusieurs &eacute;tats au joueur. J&#39;ai donc cod&eacute; un petit utilitaire qui g&eacute;n&eacute;re les &eacute;tats depuis une ligne de commande, il sagit du script <strong>manager.py</strong> situ&eacute; &agrave; la racine du jeu.</p>
+		<p>
+			Il suffit de lancer le script comme pour tout les scripts python de base, c&#39;est &agrave; dire (en ligne de commande):</p>
+
+    {% highlight python %}python manager.py{% endhighlight %}
+
+		<p>
+			Pour le moment elle ne propose que deux commandes &quot;create_player_state&quot; et &quot;player_state&quot;.</p>
+		<p>
+			La première cr&eacute;er un fichier repr&eacute;sentant un type d&#39;&eacute;tat dans le dossier &quot;states&quot;, exemple:</p>
+
+    {% highlight python %}python manager.py create_player_state:Ledge{% endhighlight %}
+
+		<p>
+			Cette commande va cr&eacute;er un fichier Ledge.py, puis importer les fonctions de ce fichier (n'étant pas encore codées logiquement) dans le <strong>PlayerStateManagement.py</strong>:</p>
+
+    {% highlight python %}from player_scripts.states.Ledge import *{% endhighlight %}
+
+		<p>
+			Et la deuxieme commande permet de cr&eacute;er les &eacute;tats dans un fichier repr&eacute;sentant un type d&#39;&eacute;tat. Par exemple si on veux cr&eacute;er l&#39;état grap dans Ledge.py (grap pour dire s&#39;accrocher), il suffirait d&#39;effectuer la commande suivante:</p>
+
+    {% highlight python %}python manager.py player_state:add:Ledge:grap{% endhighlight %}
+
+    <p>Ce qui généra les fonctions suivantes dans <strong>Ledge.py:</strong></p>
+
+    {% highlight python %}
+    def start_grapLedgeState(self):
+      """
+      Documentation
+      """
+      self.switchState(PlayerState.GRAP_LEDGE_STATE)
+    {% endhighlight %}
+
+    <div class="k-info-box">
+      <p><em>Ne vous en faîte pas, nous allons y revenir pour ce fameux start_grapLedgeState</em></p>
+    </div><br/>
+
+    {% highlight python %}
+    def grapLedgeState(self):
+      """
+      Documentation
+      """
+      pass
+    {% endhighlight %}
+
+    <p>Avec la constante générée dans <strong>PlayerConstants.py:</strong></p>
+
+    {% highlight python %}
+    class PlayerState:
+      ...
+      GRAP_LEDGE_STATE = 17
+      ...
+    {% endhighlight %}
+
+    <p>Et son appel dans le <strong>PlayerStateManagement.py:</strong></p>
+
+    {% highlight python %}
+    def managePlayerState(player):
+      ...
+      elif (etat == PlayerState.GRAP_LEDGE_STATE):
+        grapLedgeState(player)
+      ...
+    {% endhighlight %}
+    </p>
+
+    <p>Pour revenir à la fonction <strong>start_grapLedgeState</strong>, il sagit de la fonction que nous appelerons pour dire à notre
+    joueur "Prépare toi à passer à l'état grapLedgeState".
+    Ainsi l'état du joueur prendera la valeur de la constante qui correspondera à notre état soit <strong>PlayerState.GRAP_LEDGE_STATE</strong>
+    et ont pourra apporter notre petite sauce de code souhaitée avant que l'état ne commence.</p>
+    <p>Voici une petit schéma trés simple du procéssus:</p>
+    <img src="/img/tutoriels/part1/diag_startetat.png" />
+
+    <p style="color: orange;">En cours...</p>

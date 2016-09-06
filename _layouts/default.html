@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{{ page.title }}</title>
+		<!-- link to main stylesheet -->
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="/css/highlight_syntax.css">
+		<link rel="stylesheet" type="text/css" href="/css/main.css">
+	</head>
+	<body>
+		<!-- Header -->
+		<!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->
+		<header id="" class="bg-primary">
+		   <div class="container">
+		       <div class="row text-center">
+	           <div class="col-lg-10 col-lg-offset-1">
+							 <div class="row" style="padding: 50px">
+	               <h2 style="font-family: myFont;">Klauth : Rebirth</h2>
+								 <img src="/img/klauth.png" style="width: 250px;"/>
+	               <div class="row">
+	                  <p>A game developed with the Blender Game Engine</p>
+	               </div>
+	               <!-- /.row (nested) -->
+							 </div>
+	           </div>
+		           <!-- /.col-lg-10 -->
+		       </div>
+		       <!-- /.row -->
+
+					 <!-- Menu -->
+					 <div class="row" style="background-color: black;">
+						 <ul class="kr-menu">
+							 <li {% if page.id_page == 'introduction' %}class="active"{% endif %}><a href="/pages/introduction.html">Introduction</a></li>
+							 <li {% if page.id_page == 'basics' %}class="active"{% endif %}><a href="/pages/t_basics.html">Basics</a></li>
+							 <li {% if page.id_page == 'i_and_hud' %}class="active"{% endif %}><a href="/pages/t_hud.html">Interface and HUD</a></li>
+						 </ul>
+					 </div>
+		   </div>
+		   <!-- /.container -->
+		</header>
+
+		<!-- Body -->
+		<!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->
+		<section id="content">
+			 <div class="page-content container" style="background: white;">
+					 <!-- Title Section -->
+					 <div class="title-content-section">
+					 	<img src="/img/left_i_title.png"/ class="i-title"><h2>{{ page.title }}</h2><img src="/img/right_i_title.png" class="i-title"/>
+					 </div>
+
+					<!-- Content -->
+            {{ content }}
+			 </div>
+			 <!-- /.container -->
+		</section>
+
+		<!-- Footer -->
+		<footer id="contact" class="bg-primary">
+		   <div class="container">
+		       <div class="row">
+		           <div class="col-lg-10 col-lg-offset-1 text-center">
+		               <h4><strong>Klauth - Rebirth</strong></h4>
+		               <ul class="list-unstyled">
+		                   <li><i class="fa fa-phone fa-fw"></i> (590) 0690 63 61 35</li>
+		                   <li><i class="fa fa-envelope-o fa-fw"></i>  <a href="mailto:schartier.isaac@gmail.com">schartier.isaac@gmail.com</a>
+		                   </li>
+		               </ul>
+		               <br>
+		               <hr class="small">
+		               <p class="text-muted">Copyright &copy; Schartier Isaac 2016</p>
+		           </div>
+		       </div>
+		   </div>
+		</footer>
+
+	</body>
+</html>

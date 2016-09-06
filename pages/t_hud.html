@@ -1,0 +1,148 @@
+---
+layout: default
+title: Tutoriel - Interface and HUD
+id_page: i_and_hud
+---
+<p>Cette partie est concacr&eacute;e &agrave; l'HUD du joueur. Pour l'instant nous verrons le syst&egrave;me de message box avec la possibilit&eacute; d'effectuer des choix dans un dialogue.</p>
+<h3>Pr&eacute;parations/Pr&eacute;quis</h3>
+<p>Il nous faut :</p>
+<ul>
+  <li>une scene dedi&eacute;e uniquement pour les &eacute;l&egrave;ments du HUD.</li>
+  <li>une texture bitmap font pour la police d'&eacute;criture</li>
+</ul>
+<h3>MessageManager et MessageBox</h3>
+<p>La classe <strong>MessageManager</strong> est celle qui g&eacute;re tout ce qui est int&eacute;raction avec des dialogues. Tout d'abord nous avons la cllasse <strong>MessageBox</strong> pour la bo&icirc;te de message.</p>
+<p>Mais avant tout vous remarquerez les objets dans la scene tel que:</p>
+<ul>
+  <li>message_box : La boite de message</li>
+  <li>message_box.text : Le text dans la boite de message</li>
+  <li>message_box.indicator : L'indicateur du message</li>
+</ul>
+
+{% highlight python %}
+class MessageBox:
+
+	def __init__(self):
+		# Log
+		GameLog.printInfo("HUD : MessageBox initialized")
+		# get obj
+		self.messageBoxObj = objects['message_box']
+		self.textObj = objects['message_box.text']
+		self.indicatorObj = objects['message_box.indicator']
+{% endhighlight %}
+
+<p>Les 3 objets sont r&eacute;f&eacute;renc&eacute;s dans la classe MessageBox.</p><br/>
+
+<h3>Fonction displayMessage</h3>
+<p>La classe poss&egrave;de une m&eacute;thode qui permet d'ouvrir la boite de dialogue</p>
+<!-- Code Display -->
+{% highlight python %}
+def displayMessage(self, text, isNextText=False, callback=None, callback_args=None):
+  GameLog.printInfo("Display message ! " + str(text))
+  # Set callback
+  if (callback != None):
+    self.callback = callback
+    self.callback_args = callback_args
+
+  # Set new text
+  if (isNextText):
+    self.currentText = text
+  else:
+    self.setCurrentText(text)
+
+  # Reset data
+  self.textObj['Text'] = ""
+  self.elapsedParade = 0
+
+  # prepare var
+  self.tempText = self.currentText
+  lines = self.currentText.splitlines()
+  row = 0
+  offset = 0
+
+  # for each splited lines
+  for splited_line in lines:
+    text = textwrap.wrap(splited_line, width=self.colSize, break_long_words=False, replace_whitespace=False, fix_sentence_endings=True)
+    # for each line
+    for line in text:
+      self.filterTextLine(line, row, offset)
+      # join line
+      offset += len(line)
+      row += 1
+
+  # set message box to visible and assure that indicator is invisible
+  self.messageBoxObj.setVisible(True, True)
+  self.indicatorObj.setVisible(False)
+  self.active = True
+{% endhighlight %}
+<br/>
+<!-- code set current -->
+<h3>Fonction setCurrentText</h3>
+
+<p>Elle prépare le texte qui sera affiché dans la message box. Si le texte ne peut être affiché entiérement
+(cause de place dans la messagebox), il sera stocker dans l'attribut <strong>nextText</strong> qui sera utilisé pour
+afficher la prochaine boîte.</p>
+
+{% highlight python %}
+def setCurrentText(self, text):
+  """
+  Check if given text exceed the message box content.
+  """
+  size = self.colSize * self.rowSize
+  # if text is not a array
+  if (not isinstance( text, (frozenset, list, set, tuple,) )):
+    textLen = len(text)
+    # if text len exceed autorized size save the rest in nextText
+    if (textLen > size):
+      self.currentText = text[:size]
+      self.nextText.append(text[size:textLen])
+    else:
+      self.currentText = text
+  else: # Else is a array so add each array data in next text
+    i = 0
+    for textData in text:
+      # if the first array index, test if text exceeds
+      if (i == 0):
+        lenTextData = len(textData)
+        self.currentText = textData[:size]
+        # if current text data exceeds add the rest to nextText
+        if (lenTextData > size):
+          self.nextText.append(textData[size:lenTextData])
+      else:
+        self.nextText.append(textData)
+        GameLog.printInfo("Add next text ! " + textData)
+      # increment
+      i += 1
+{% endhighlight %}
+<br/>
+<!-- code parade -->
+<h3>Fonction textParade</h3>
+
+<p>La fonction permettant de réaliser l'effet du défilement de text.
+<br/>Note au passage... j'ai essayé de faire en sorte que des icons soit aussi affiché dans la message box, cependant
+il arrive que des erreurs de calcul au niveau de la position de l'objet se manifeste. Je considère donc ce système non
+fonctionnel pour l'instant. (Consultez la fonction <strong>filterTextLine</strong> pour plus d'infos)</p>
+
+{% highlight python %}
+def textParade(self):
+  # increment elapsedParade attr
+  self.elapsedParade += 1
+  # get current line
+  lines = self.tempText[:self.elapsedParade].splitlines()
+  # init text var and make it
+  text = ""
+  for line in lines:
+    text += textwrap.fill(line, self.colSize, replace_whitespace=False)+"\n"
+
+  # don't work completely, error position
+  if (self.elapsedParade in self.arrayIcon):
+    icon = self.arrayIcon[self.elapsedParade]
+
+    iconObj = icon['icon_obj']
+    iconObj.setVisible(True)
+
+  # finalise display text
+  self.textObj['Text'] = text
+{% endhighlight %}
+
+<p style="color: orange;"><strong>En cours...</strong></p>
