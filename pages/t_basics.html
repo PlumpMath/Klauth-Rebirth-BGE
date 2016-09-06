@@ -4,9 +4,9 @@ title: Tutoriel - Basics
 id_page: basics
 ---
 <p>
-Regardons l'arborescence de notre dossier:
+Regardons l'arborescence de notre dossier (à partir de /data):
 {% highlight ruby %}
-\
+data/
   - audio/
   - chars/
   - dx_bge/
@@ -24,7 +24,7 @@ Regardons l'arborescence de notre dossier:
 			<li>
 				<strong>&quot;props&quot;: </strong>comporte tout les effets, bonus, &eacute;l&eacute;ments, bref des objets externes que nous lierons aux scenes ou aux personnages .</li>
 			<li>
-				<strong>&quot;chars&quot;:</strong> avec tout les personnages du jeu tel que les monstres, NPC et joueurs.</li>
+				<strong>&quot;chars&quot;:</strong> avec tout les personnages du jeu tel que les enemies, NPC et joueurs.</li>
 			<li>
 				<strong>&quot;texture&quot;: </strong>comme l&#39;indique le nom du dossier, il sagit du r&eacute;pertoire o&ugrave; les textures y seront stock&eacute;es.</li>
 			<li>
@@ -74,7 +74,7 @@ Regardons l'arborescence de notre dossier:
     {% highlight python %}from player_scripts.states.Ledge import *{% endhighlight %}
 
 		<p>
-			Et la deuxieme commande permet de cr&eacute;er les &eacute;tats dans un fichier repr&eacute;sentant un type d&#39;&eacute;tat. Par exemple si on veux cr&eacute;er l&#39;état grap dans Ledge.py (grap pour dire s&#39;accrocher), il suffirait d&#39;effectuer la commande suivante:</p>
+			Et la deuxieme commande permet de cr&eacute;er les &eacute;tats dans un fichier repr&eacute;sentant un type d&#39;&eacute;tat. Par exemple si on veux cr&eacute;er l&#39;état grap dans Ledge.py (grap pour dire s&#39;accrocher), il suffira d&#39;effectuer la commande suivante:</p>
 
     {% highlight python %}python manager.py player_state:add:Ledge:grap{% endhighlight %}
 

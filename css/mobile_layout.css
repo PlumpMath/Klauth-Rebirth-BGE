@@ -12,9 +12,15 @@
   }
 
   #content h3{
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
   }
+
+}
+
+@media (min-width: 320px) and (max-width: 600px){
+  #content .text-center img{
+    width: 100%;
 }
 
 @media (min-width: 600px) {
@@ -24,5 +30,9 @@
 
   .title-content-section > h2{
     font-size: 20px;
+  }
+
+  #content h3{
+    font-size: 18px;
   }
 }

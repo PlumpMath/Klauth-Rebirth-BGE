@@ -4,7 +4,7 @@ html, body{
 
 @font-face {
     font-family: myFont;
-    src: url(../font/PaperJohnnyEinhalb-Regular.otf);
+    src: url(../fonts/PaperJohnnyEinhalb-Regular.otf);
 }
 
 h2, h3, h4{
@@ -12,6 +12,10 @@ h2, h3, h4{
 }
 /*Content*/
 #content{
+}
+
+#content .text-center img{
+  width: 40%;
 }
 
 /* Footer */
