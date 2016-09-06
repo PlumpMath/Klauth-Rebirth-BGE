@@ -3,9 +3,9 @@
 	<head>
 		<title>{{ page.title }}</title>
 		<!-- link to main stylesheet -->
-		<link rel="stylesheet" type="text/css" href="{{ site.url }}/css/bootstrap.css">
-		<link rel="stylesheet" type="text/css" href="{{ site.url }}/css/highlight_syntax.css">
-		<link rel="stylesheet" type="text/css" href="{{ site.url }}/css/main.css">
+		<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/highlight_syntax.css">
+		<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/main.css">
 	</head>
 	<body>
 		<!-- Header -->
@@ -16,7 +16,7 @@
 	           <div class="col-lg-10 col-lg-offset-1">
 							 <div class="row" style="padding: 50px">
 	               <h2 style="font-family: myFont;">Klauth : Rebirth</h2>
-								 <img src="{{ site.url }}/img/klauth.png" style="width: 250px;"/>
+								 <img src="{{ site.baseurl }}/img/klauth.png" style="width: 250px;"/>
 	               <div class="row">
 	                  <p>A game developed with the Blender Game Engine</p>
 	               </div>
@@ -30,9 +30,9 @@
 					 <!-- Menu -->
 					 <div class="row" style="background-color: black;">
 						 <ul class="kr-menu">
-							 <li {% if page.id_page == 'introduction' %}class="active"{% endif %}><a href="{{ site.url }}/pages/introduction.html">Introduction</a></li>
-							 <li {% if page.id_page == 'basics' %}class="active"{% endif %}><a href="{{ site.url }}/pages/t_basics.html">Basics</a></li>
-							 <li {% if page.id_page == 'i_and_hud' %}class="active"{% endif %}><a href="{{ site.url }}/pages/t_hud.html">Interface and HUD</a></li>
+							 <li {% if page.id_page == 'introduction' %}class="active"{% endif %}><a href="{{ site.baseurl }}/pages/introduction.html">Introduction</a></li>
+							 <li {% if page.id_page == 'basics' %}class="active"{% endif %}><a href="{{ site.baseurl }}/pages/t_basics.html">Basics</a></li>
+							 <li {% if page.id_page == 'i_and_hud' %}class="active"{% endif %}><a href="{{ site.baseurl }}/pages/t_hud.html">Interface and HUD</a></li>
 						 </ul>
 					 </div>
 		   </div>
